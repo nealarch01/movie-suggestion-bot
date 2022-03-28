@@ -14,8 +14,7 @@ client_config.json should look something like this:
         "tmdb_api_key": "",
         "discord_token": "",
         "discord_client_id": "",
-        "personal_development_guildID": "",
-        "server_development_id": "",
+        "personal_development_guildID": ""
     }
 ```
 
@@ -29,3 +28,6 @@ Notes:
     - https://developers.themoviedb.org/3/getting-started/introduction
     - https://discordjs.guide/#before-you-begin
     - https://discord.js.org/#/
+### Attributions:
+- Movie data is obtained from https://www.themoviedb.org
+- Each result given by the bot will source themoviedb
