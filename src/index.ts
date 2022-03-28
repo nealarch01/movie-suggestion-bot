@@ -33,13 +33,33 @@ discordClient.on('interactionCreate', async (interaction) => {
         var movieSuggestion: IMovieData = await getRandomMovie(genreInput);
         if (movieSuggestion === undefined) {
             await interaction.reply('Invalid genre type');
+        } else if (movieSuggestion.success === false) {
+            await interaction.reply('Invalid genre type. No results found');
         } else {
-            await interaction.reply(`${movieSuggestion.movie_name}`)
+            await interaction.reply(`${formatMovieData(movieSuggestion)}`);
         }
     } else if (commandSent === 'movie-trailer') {
         await interaction.reply('Trailer');
     }
-})
+});
+
+// formats movie data into a discord message
+function formatMovieData(movieData: IMovieData): string {
+    return `
+${attributeSource("")}
+**${movieData.movie_name}**
+**Released**: ${movieData.movie_release_date}
+**Description**: ${movieData.movie_description}
+**${movieData.movie_user_ratings}%** liked this movie (tmdb)
+${(movieData.poster_URL === null) ? "No poster to display" : `[poster](https://image.tmdb.org/t/p/w1280${movieData.poster_URL})`}
+`;
+}
+
+
+// Call this function when using data obtained from tmdb
+function attributeSource(message: string): string {
+    return `${message}Data obtained from themoviedb.org`;
+}
 
 
 // log into client passing api token
