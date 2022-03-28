@@ -21,7 +21,6 @@ discordClient.on('interactionCreate', async (interaction) => {
     }
     const commandSent = interaction.commandName; // commandSent is an array of string arguments
     const commandArgs = interaction.options;
-    console.log(commandSent);
     if (commandSent === 'movie-random') {
         var genreInput: string = "";
         if (commandArgs.data.length > 0) {
@@ -39,7 +38,7 @@ discordClient.on('interactionCreate', async (interaction) => {
             await interaction.reply(`${formatMovieData(movieSuggestion)}`);
         }
     } else if (commandSent === 'movie-trailer') {
-        await interaction.reply('Trailer');
+        await interaction.reply('Feature currently not enabled');
     }
 });
 

@@ -36,14 +36,11 @@ async function getRandomMovie(genreInput: string): Promise<IMovieData> {
 
     // documetation link for discover: https://developers.themoviedb.org/3/discover/movie-discover
     var discoverURL: string;
-    console.log(genreInput);
     var genreID = genreMap.get(genreInput); // get the assigned id value
-    console.log(genreID);
     if (genreID === undefined) {
         genreInput = movieGenres[Math.floor(Math.random() * movieGenres.length)];
         genreID = genreMap.get(genreInput);
     }
-    console.log(genreID);
     discoverURL = `https://api.themoviedb.org/3/discover/movie?api_key=${tmdb_api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genreID}`;
     try {
         const response = await axios.get(discoverURL); // queries an entire list of movies of
