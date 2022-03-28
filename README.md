@@ -24,3 +24,8 @@ client_config.json should look something like this:
 
 Notes: 
 - tsconfig.json has already been preconfigured, feel free to make your own changes that fit your need
+- This bot uses discord.js V13
+- Documentation links
+    - https://developers.themoviedb.org/3/getting-started/introduction
+    - https://discordjs.guide/#before-you-begin
+    - https://discord.js.org/#/
