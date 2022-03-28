@@ -1,6 +1,6 @@
 import axios from "axios"
 
-import IMovieData from "./IMovieData";
+import IMovieData from "./interfaces/IMovieData";
 
 import { tmdb_api_key } from "../client_config.json";
 

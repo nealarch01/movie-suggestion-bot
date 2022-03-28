@@ -2,7 +2,7 @@ import { Client, Intents, Interaction } from 'discord.js';
 import { discord_token } from '../client_config.json';
 
 // interface imports
-import IMovieData from './IMovieData'; // interface for generic movie data {success, movie_id, movie_name}
+import IMovieData from './interfaces/IMovieData'; // interface for generic movie data {success, movie_id, movie_name}
 
 import getRandomMovie from './random-movie';
 
