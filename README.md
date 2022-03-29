@@ -1,6 +1,6 @@
-A discord bot for your server that can provide you with random movie suggestions information of a movie such as ratings, trailer, etc. Best for discord movie night with friends
+A discord bot for your server that can provide you with random movie suggestions, information of a movie such as ratings, trailer, etc. Best for discord movie night with friends!
 
-Please note: this bot is still in development, more features will be added gradually
+Please note: this bot is still in development, more features will be added over time
 
 ## Requirements
 1. client_config file that contains your api keys. API's used: Discord and TheMovieDatabase (TMDB)
@@ -18,7 +18,9 @@ client_config.json should be located in the directory of package.json (not in sr
     }
 ```
 
-2. Typescript node (ts-node) needs to be installed. A script in package.json has already been defined so you can go ahead and run the bot
+2. Node.js
+
+3. TypeScript node (ts-node), a script in package.json has already been defined so you can go ahead and run the bot
     - To run the bot type: ``` npm start ``` into your terminal
     - To register commands into your server type: ``` npm run deploy-commands ```
         - Make sure to update personal guildID with your discord server ID
@@ -27,15 +29,16 @@ client_config.json should be located in the directory of package.json (not in sr
 1. Navigate to a directory where you want to install your bot
 2. Type ``` git clone https://github.com/nealarch01/DiscordMovieBot.git ```
 3. Followed by: ``` npm install``` to install dependency packages
-4. Configure your client_config.json file and assign your own api keys
-5. Register the bot's commands to your discord server (optional)
+4. Now to install ts-node to run the bot ``` npm install ts-node ```
+5. Configure your client_config.json file and assign your own api keys
+6. Register the bot's commands to your discord server (optional)
     - set personal_guildID's value in client.config_json to the discord server ID the bot is being added to
     - type ```npm run deploy-commands```
-6. Finally start the bot ``` npm start ```
+7. Finally start the bot ``` npm start ```
 
 ## Additional notes: 
 
-- tsconfig.json has already been preconfigured, feel free to make your own changes that fit your needs
+- tsconfig.json has already been configured but feel free to make your own changes!
 - This bot uses discord.js V13
 - Documentation links
     - https://developers.themoviedb.org/3/getting-started/introduction
