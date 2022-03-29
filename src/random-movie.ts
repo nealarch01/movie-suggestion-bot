@@ -46,7 +46,7 @@ async function getRandomMovie(genreInput: string): Promise<IMovieData> {
         const response = await axios.get(discoverURL); // queries an entire list of movies of
         const moviesList: Array<object> = response.data.results;
         const randomMovieData: any = moviesList[Math.floor(Math.random() * moviesList.length)];
-        console.log(randomMovieData); // for testing purposes; print to console the movie generated
+        // console.log(randomMovieData); // for testing purposes; print to console the movie generated
         return {
             success: true,
             movie_id: randomMovieData.id,
