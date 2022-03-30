@@ -21,6 +21,10 @@ discordClient.on('interactionCreate', async (interaction) => {
     }
     const commandSent = interaction.commandName; // commandSent is an array of string arguments
     const commandArgs = interaction.options;
+    /* Order of commands currently
+        1. movie-random genre?: string
+        2. movie-trailer name: string
+    */
     if (commandSent === 'movie-random') {
         var genreInput: string = "";
         if (commandArgs.data.length > 0) {
@@ -29,20 +33,21 @@ discordClient.on('interactionCreate', async (interaction) => {
                 genreInput = commandArgs.data[0].value; // reassign to option type
             }
         }
-        var movieSuggestion: IMovieData = await getRandomMovie(genreInput);
-        if (movieSuggestion === undefined) {
-            await interaction.reply('Invalid genre type');
-        } else if (movieSuggestion.success === false) {
-            await interaction.reply('Invalid genre type. No results found');
-        } else {
-            await interaction.reply(`${formatMovieData(movieSuggestion)}`);
-        }
-    } else if (commandSent === 'movie-trailer') {
+        var suggsetedMovie: IMovieData = await getRandomMovie(genreInput);
+        if (suggsetedMovie.success === true) { // if a movie was successfully returned
+            await interaction.reply(`${formatMovieData(suggsetedMovie)}`);
+        } else { // if success failed or returned
+            await interaction.reply('There was an error getting movie');
+        } // end of movie-random
+
+    } else if (commandSent === 'movie-trailer') { 
         await interaction.reply('Feature currently not enabled');
     }
 });
 
+
 // formats movie data into a discord message
+// this functiona should only be called if success was true
 function formatMovieData(movieData: IMovieData): string {
     return `
 ${attributeSource("")}
