@@ -7,11 +7,6 @@ import { REST } from "@discordjs/rest";
 import { Routes } from "discord.js/node_modules/discord-api-types/v9";
 import { discord_token, discord_clientID, personal_guildID } from '../client_config.json';
 
-
-
-// will eventually add more genres but just this for now
-// const allGenres: [string, string][] = [['Horror', 'Scary Movies'],
-// ['Comedy', 'Funny movies']];
 const allGenres: Array<[string, string]> = [['Horror', 'Scary movies'],
 ['Comedy', 'Funny movies']];
 
