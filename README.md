@@ -25,7 +25,7 @@ client_config.json should be located in the directory of package.json (not in sr
 ## Installation:
 1. Navigate to a directory where you want to install your bot
 2. Type ``` git clone https://github.com/nealarch01/DiscordMovieBot.git ```
-3. Followed by: ``` npm install``` to install dependency packages
+3. Navigate into the Discord bot directory and then type ``` npm install``` to install dependency packages
 4. Install ts-node (you can skip this step if you already have it installed) ``` npm install ts-node ```
 5. Configure your client_config.json file and assign your own api keys
 6. Register the bot's commands to your discord server (optional)
