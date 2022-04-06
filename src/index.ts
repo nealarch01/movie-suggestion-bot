@@ -50,7 +50,7 @@ discordClient.on('interactionCreate', async (interaction) => {
 // this functiona should only be called if success was true
 function formatMovieData(movieData: IMovieData): string {
     return `
-${attributeSource("")}
+${attributeSource_tmdb("")}
 **${movieData.movie_name}**
 **Released**: ${movieData.movie_release_date}
 **Description**: ${movieData.movie_description}
@@ -61,10 +61,9 @@ ${(movieData.poster_URL === null) ? "No poster to display" : `[poster](https://i
 
 
 // Call this function when using data obtained from tmdb
-function attributeSource(message: string): string {
+function attributeSource_tmdb(message: string): string {
     return `${message}Data obtained from themoviedb.org`;
 }
-
 
 // log into client passing api token
 discordClient.login(discord_token);
