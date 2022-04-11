@@ -70,14 +70,14 @@ async function getRandomMovie(genreInput: string): Promise<IMovieData> {
         let response = await axios.get(discoverURL); // queries an entire list of movies of the specified genre
         if (response.data.total_results === 0) { // case for if the random page number generated does not contain any results
             discoverURL = `https://api.themoviedb.org/3/discover/movie?api_key=${tmdb_api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${1}&with_genres=${genreID}`;
-            response = await axios.get(discoverURL);
+            response = await axios.get(discoverURL); // recall to get the first page data
         }
 
         // if no data was found again in the first page, throw an error and return unsuccessful
         if (response.data.total_results === 0) {
             throw "No data found";
         }
-        
+
         const moviesList: Array<object> = response.data.results;
 
         const randomMovieData: any = moviesList[Math.floor(Math.random() * moviesList.length)];
