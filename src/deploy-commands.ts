@@ -8,7 +8,21 @@ import { Routes } from "discord.js/node_modules/discord-api-types/v9";
 import { discord_token, discord_clientID, personal_guildID } from '../client_config.json';
 
 const allGenres: Array<[string, string]> = [['Horror', 'Scary movies'],
-['Comedy', 'Funny movies']];
+                                            ['Comedy', 'Funny movies'],
+                                            ['Thriller', 'Thrilling movies'],
+                                            ['Action', 'Action Movies'],
+                                            ['Adventure', 'Adventorous Movies'],
+                                            ['Animation', 'Animated Movies'],
+                                            ['History', 'Historical Movies'],
+                                            ['Documentary', 'Documentary films'],
+                                            ['Music', 'Musicals'],
+                                            ['Mystery', 'Mystery movies'],
+                                            ['Romance', 'Romantic movies'],
+                                            ['Sci-fi', 'Science fiction movies'],
+                                            ['Drama', 'Drama movies'],
+                                            ['War', 'War movies'],
+                                            ['Crime', 'True crime movies'],
+                                            ['Family', 'Family friendly movies']];
 
 // registering bot commands through an array of SlashCommandBuilders
 const movieBotCommands = [
