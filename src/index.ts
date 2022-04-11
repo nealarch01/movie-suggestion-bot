@@ -1,20 +1,24 @@
-import { Client, Intents, Interaction } from 'discord.js';
-import { discord_token } from '../client_config.json';
+// Discord imports
+import { Client, Intents, Interaction } from "discord.js";
+import { discord_token } from "../client_config.json";
 
-// interface imports
-import IMovieData from './interfaces/IMovieData'; // interface for generic movie data {success, movie_id, movie_name}
+// Interface imports
+import IMovieData from "./interfaces/IMovieData"; // interface for generic movie data {success, movie_id, movie_name}
 
-import getRandomMovie from './random-movie';
+// Functions from other files
+import getRandomMovie from "./random-movie";
+import getMovieTrailer from "./movie-trailer";
+import getMovieID from "./utils/movie-id";
 
 // initiate the client
 const discordClient = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 // event listener to start
-discordClient.once('ready', () => {
-    console.log('The bot is now running');
+discordClient.once("ready", () => {
+    console.log("The bot is now running");
 });
 
-discordClient.on('interactionCreate', async (interaction) => {
+discordClient.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) {
         // checks if the interaction (message) is a command
         return;
@@ -25,11 +29,11 @@ discordClient.on('interactionCreate', async (interaction) => {
         1. movie-random genre?: string
         2. movie-trailer name: string
     */
-    if (commandSent === 'movie-random') {
+    if (commandSent === "movie-random") {
         var genreInput: string = "";
         if (commandArgs.data.length > 0) {
             // generate a random movie of a random genre / category
-            if (typeof (commandArgs.data[0].value) === 'string') {
+            if (typeof (commandArgs.data[0].value) === "string") {
                 genreInput = commandArgs.data[0].value; // reassign to option type
             }
         }
@@ -37,11 +41,16 @@ discordClient.on('interactionCreate', async (interaction) => {
         if (suggsetedMovie.success === true) { // if a movie was successfully returned
             await interaction.reply(`${formatMovieData(suggsetedMovie)}`);
         } else { // if success failed or returned
-            await interaction.reply('There was an error getting movie');
+            await interaction.reply("There was an error getting movie");
         } // end of movie-random
 
-    } else if (commandSent === 'movie-trailer') { 
-        await interaction.reply('Feature currently not enabled');
+    } else if (commandSent === "movie-trailer") { 
+        if (commandArgs.data.length === 0) {
+            await interaction.reply("Please specify the movie name");
+        }
+        let movieID: number = await getMovieID(commandArgs.data[0].value!.toString());
+        let movieTrailerLink = await getMovieTrailer(movieID);
+        await interaction.reply(movieTrailerLink);
     }
 });
 
