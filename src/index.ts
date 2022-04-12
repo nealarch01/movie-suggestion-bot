@@ -6,9 +6,9 @@ import { discord_token } from "../client_config.json";
 import IMovieData from "./interfaces/IMovieData"; // interface for generic movie data {success, movie_id, movie_name}
 
 // Functions from other files
-import getRandomMovie from "./random-movie";
-import getMovieTrailer from "./movie-trailer";
-import getMovieID from "./utils/movie-id";
+import getRandomMovie from "./api/random-movie";
+import getMovieTrailer from "./api/movie-trailer";
+import getMovieID from "./api/movie-id";
 
 // initiate the client
 const discordClient = new Client({ intents: [Intents.FLAGS.GUILDS] });

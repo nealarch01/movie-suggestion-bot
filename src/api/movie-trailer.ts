@@ -2,7 +2,7 @@
 import axios from "axios";
 
 // JSON imports
-import { tmdb_api_key } from "../client_config.json";
+import { tmdb_api_key } from "../../client_config.json";
 
 async function getMovieTrailer(movie_id: number): Promise<string> {
     // documentation to get video: https://developers.themoviedb.org/3/movies/get-movie-videos

@@ -2,10 +2,10 @@
 import axios from "axios"
 
 // interface imports
-import IMovieData from "./interfaces/IMovieData";
+import IMovieData from "../interfaces/IMovieData";
 
 // json imports
-import { tmdb_api_key } from "../client_config.json";
+import { tmdb_api_key } from "../../client_config.json";
 
 
 const movieGenres: Array<string> = ["action",
