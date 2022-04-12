@@ -2,13 +2,9 @@
 import { Client, Intents, Interaction } from "discord.js";
 import { discord_token } from "../client_config.json";
 
-// Interface imports
-import IMovieData from "./interfaces/IMovieData"; // interface for generic movie data {success, movie_id, movie_name}
-
-// Functions from other files
-import getRandomMovie from "./api/random-movie";
-import getMovieTrailer from "./api/movie-trailer";
-import getMovieID from "./api/movie-id";
+// Command handlers
+import randomMovieCommand from "./commands/random-movie-command";
+import movieTrailerCommand from "./commands/movie-trailer-command";
 
 // initiate the client
 const discordClient = new Client({ intents: [Intents.FLAGS.GUILDS] });
@@ -18,7 +14,7 @@ discordClient.once("ready", () => {
     console.log("The bot is now running");
 });
 
-discordClient.on("interactionCreate", async (interaction) => {
+discordClient.on("interactionCreate", async (interaction: Interaction) => {
     if (!interaction.isCommand()) {
         // checks if the interaction (message) is a command
         return;
@@ -30,49 +26,11 @@ discordClient.on("interactionCreate", async (interaction) => {
         2. movie-trailer name: string
     */
     if (commandSent === "movie-random") {
-        var genreInput: string = "";
-        if (commandArgs.data.length > 0) {
-            // generate a random movie of a random genre / category
-            if (typeof (commandArgs.data[0].value) === "string") {
-                genreInput = commandArgs.data[0].value; // reassign to option type
-            }
-        }
-        var suggsetedMovie: IMovieData = await getRandomMovie(genreInput);
-        if (suggsetedMovie.success === true) { // if a movie was successfully returned
-            await interaction.reply(`${formatMovieData(suggsetedMovie)}`);
-        } else { // if success failed or returned
-            await interaction.reply("There was an error getting movie");
-        } // end of movie-random
-
-    } else if (commandSent === "movie-trailer") { 
-        if (commandArgs.data.length === 0) {
-            await interaction.reply("Please specify the movie name");
-        }
-        let movieID: number = await getMovieID(commandArgs.data[0].value!.toString());
-        let movieTrailerLink = await getMovieTrailer(movieID);
-        await interaction.reply(movieTrailerLink);
+        await randomMovieCommand(interaction);
+    } else if (commandSent === "movie-trailer") {
+        movieTrailerCommand(interaction);
     }
 });
-
-
-// formats movie data into a discord message
-// this functiona should only be called if success was true
-function formatMovieData(movieData: IMovieData): string {
-    return `
-${attributeSource_tmdb("")}
-**${movieData.movie_name}**
-**Released**: ${movieData.movie_release_date}
-**Description**: ${movieData.movie_description}
-**${movieData.movie_user_ratings}%** liked this movie (tmdb)
-${(movieData.poster_URL === null) ? "No poster to display" : `[poster](https://image.tmdb.org/t/p/w1280${movieData.poster_URL})`}
-`;
-}
-
-
-// Call this function when using data obtained from tmdb
-function attributeSource_tmdb(message: string): string {
-    return `${message}Data obtained from themoviedb.org`;
-}
 
 // log into client passing api token
 discordClient.login(discord_token);
