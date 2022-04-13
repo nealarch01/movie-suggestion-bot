@@ -8,7 +8,7 @@ import { CommandInteraction } from "discord.js";
 import IMovieData from "../interfaces/IMovieData";
 
 // Utility import
-import formatMovieMessage from "../utils/format-random-movie";
+import formatMovieMessage from "../utils/format-movie-message";
 
 async function randomMovieCommand(interaction: CommandInteraction): Promise<void> {
     const commandArguments = interaction.options;
