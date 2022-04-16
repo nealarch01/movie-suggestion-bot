@@ -28,7 +28,7 @@ discordClient.on("interactionCreate", async (interaction: Interaction) => {
     if (commandSent === "movie-random") {
         await randomMovieCommand(interaction);
     } else if (commandSent === "movie-trailer") {
-        movieTrailerCommand(interaction);
+        await movieTrailerCommand(interaction);
     }
 });
 
