@@ -44,3 +44,12 @@ client_config.json should be located in the directory of package.json (not in sr
 ### Attributions:
 - Movie data is obtained from https://www.themoviedb.org
 - Each result given by the bot will source themoviedb
+
+
+
+
+https://user-images.githubusercontent.com/73256760/163731966-68b4b0a1-d841-424a-9bc1-8380d8aac655.mov
+
+
+
+
