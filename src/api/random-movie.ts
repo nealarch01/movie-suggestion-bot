@@ -1,53 +1,31 @@
-// library imports
+// Library imports
 import axios from "axios"
 
-// interface imports
+// Interface imports
 import IMovieData from "../interfaces/IMovieData";
 
-// json imports
+// JSON imports
 import { tmdb_api_key } from "../../client_config.json";
 
-
-const movieGenres: Array<string> = ["action",
-    "adventure",
-    "animation",
-    "comedy",
-    "crime",
-    "drama",
-    "documentary",
-    "fantasy",
-    "family",
-    "music",
-    "musicals",
-    "historical",
-    "romance",
-    "sci-fi",
-    "thriller",
-    "horror",
-    "western",
-    "war"
-];
-
-
-const genreMap: Map<string, string | undefined> = new Map();
-genreMap.set("action", "28");
-genreMap.set("adventure", "12");
-genreMap.set("animation", "16");
-genreMap.set("comedy", "35");
-genreMap.set("crime", "80");
-genreMap.set("documentary", "99");
-genreMap.set("drama", "18");
-genreMap.set("family", "10751");
-genreMap.set("fantasy", "14");
-genreMap.set("history", "36");
-genreMap.set("horror", "27");
-genreMap.set("music", "10402");
-genreMap.set("mystery", "9648");
-genreMap.set("romance", "10749");
-genreMap.set("sci-fi", "878");
-genreMap.set("thriller", "53");
-genreMap.set("war", "10752");
-genreMap.set("western", "37");
+const genreMap: Map<string, number | undefined> = new Map();
+genreMap.set("action", 28);
+genreMap.set("adventure", 12);
+genreMap.set("animation", 16);
+genreMap.set("comedy", 35);
+genreMap.set("crime", 80);
+genreMap.set("documentary", 99);
+genreMap.set("drama", 18);
+genreMap.set("family", 10751);
+genreMap.set("fantasy", 14);
+genreMap.set("history", 36);
+genreMap.set("horror", 27);
+genreMap.set("music", 10402);
+genreMap.set("mystery", 9648);
+genreMap.set("romance", 10749);
+genreMap.set("sci-fi", 878);
+genreMap.set("thriller", 53);
+genreMap.set("war", 10752);
+genreMap.set("western", 37);
 
 // function generates a random number between 3 and 4
 function generatePageNumber() {
@@ -55,16 +33,21 @@ function generatePageNumber() {
 }
 
 async function getRandomMovie(genreInput: string): Promise<IMovieData> {
-    genreInput = genreInput.toLowerCase(); // convert to lowercase
-    // documetation link for discover: https://developers.themoviedb.org/3/discover/movie-discover
-    var discoverURL: string;
-    var genreID = genreMap.get(genreInput); // get the assigned id value
+    let genreID: number | undefined
+    if (genreInput !== "") { // If a non-empty string is passed, convert the genre string into an ID
+        genreInput = genreInput.toLowerCase(); // First convert to lower case to negate case sensitivity
+        genreID = genreMap.get(genreInput); // Get the assigned id value
+    }
+    // Documentation link for discover: https://developers.themoviedb.org/3/discover/movie-discover
 
-    // if an unknown genre is entered, set genreInput to a random genre from the array of genres
+    // If an unknown genre is read, set genreInput to a random valid genre
     if (genreID === undefined) {
-        genreInput = movieGenres[Math.floor(Math.random() * movieGenres.length)];
+        const allGenreKeys = Array.from(genreMap.keys());
+        genreInput = allGenreKeys[Math.floor(Math.random() * allGenreKeys.length)];
         genreID = genreMap.get(genreInput);
     }
+
+    let discoverURL: string;
     discoverURL = `https://api.themoviedb.org/3/discover/movie?api_key=${tmdb_api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${generatePageNumber()}&with_genres=${genreID}`;
     try {
         let response = await axios.get(discoverURL); // queries an entire list of movies of the specified genre
