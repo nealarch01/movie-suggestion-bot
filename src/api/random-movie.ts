@@ -2,7 +2,7 @@
 import axios from "axios"
 
 // Interface imports
-import IMovieData from "../interfaces/IMovieData";
+import MovieInterface from "../interfaces/movie-interface";
 
 // JSON imports
 import { tmdb_api_key } from "../../client_config.json";
@@ -32,7 +32,7 @@ function generatePageNumber() {
     return Math.floor(Math.random() * (4 - 1) + 1);
 }
 
-async function getRandomMovie(genreInput: string): Promise<IMovieData> {
+async function getRandomMovie(genreInput: string): Promise<MovieInterface> {
     let genreID: number | undefined
     if (genreInput !== "") { // If a non-empty string is passed, convert the genre string into an ID
         genreInput = genreInput.toLowerCase(); // First convert to lower case to negate case sensitivity

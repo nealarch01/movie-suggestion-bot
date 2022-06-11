@@ -1,10 +1,10 @@
 // Interface imports
-import IMovieData from "../interfaces/IMovieData";
+import MovieInterface from "../interfaces/movie-interface";
 
 // Attribute source to tmdb
 import attributeSource_tmdb from "./attribute-tmdb";
 
-function formatMovieMessage(movieData: IMovieData): string {
+function formatMovieMessage(movieData: MovieInterface): string {
     return `
 ${attributeSource_tmdb("")}
 **${movieData.movie_name}**

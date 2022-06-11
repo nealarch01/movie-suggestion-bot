@@ -1,4 +1,4 @@
-interface IMovieData {
+interface MovieInterface {
     success: boolean;
     movie_id: number;
     movie_name: string;
@@ -9,4 +9,4 @@ interface IMovieData {
 }
 
 
-export default IMovieData;
+export default MovieInterface;

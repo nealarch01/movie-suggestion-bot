@@ -5,7 +5,7 @@ import getRandomMovie from "../api/random-movie";
 import { CommandInteraction } from "discord.js";
 
 // Interface imports
-import IMovieData from "../interfaces/IMovieData";
+import MovieInterface from "../interfaces/movie-interface";
 
 // Utility import
 import formatMovieMessage from "../utils/format-movie-message";
@@ -44,7 +44,7 @@ async function randomMovieCommand(interaction: CommandInteraction): Promise<void
         }
     }
     // If a genre is not specified, then an empty string is passed
-    let generatedMovie: IMovieData = await getRandomMovie(specifiedGenre);
+    let generatedMovie: MovieInterface = await getRandomMovie(specifiedGenre);
     if (generatedMovie.success === true) {
         await interaction.reply(`${formatMovieMessage(generatedMovie)}`);
     } else {
