@@ -72,7 +72,7 @@ async function getRandomMovie(genreInput: string): Promise<MovieInterface> {
             movie_release_date: randomMovieData.release_date,
             movie_description: randomMovieData.overview,
             movie_user_ratings: randomMovieData.vote_average,
-            poster_URL: randomMovieData.poster_path
+            poster_id: randomMovieData.poster_path
         };
     } catch (err) {
         console.log('An error has occured getting data (random-movie.ts)');
@@ -83,7 +83,7 @@ async function getRandomMovie(genreInput: string): Promise<MovieInterface> {
             movie_release_date: 'null',
             movie_description: 'null',
             movie_user_ratings: 0,
-            poster_URL: null
+            poster_id: undefined
         };
     }
 }
