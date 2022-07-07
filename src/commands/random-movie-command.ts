@@ -2,7 +2,7 @@
 import getRandomMovie from "../api/random-movie";
 
 // Discord type imports
-import { CommandInteraction } from "discord.js";
+import { CommandInteraction, Interaction } from "discord.js";
 
 // Interface imports
 import MovieInterface from "../interfaces/movie-interface";
@@ -10,61 +10,72 @@ import MovieInterface from "../interfaces/movie-interface";
 // Utility import
 import formatMovieMessage from "../utils/format-movie-message";
 
-const validGenres: Array<string> = [
-    "action",
-    "adventure",
-    "animation",
-    "comedy",
-    "crime",
-    "drama",
-    "documentary",
-    "fantasy",
-    "family",
-    "music",
-    "musicals",
-    "historical",
-    "romance",
-    "sci-fi",
-    "thriller",
-    "horror",
-    "western",
-    "war"
-];
+const GenreTypes: any = {
+    "action": 28,
+    "adventure": 12,
+    "animation": 16,
+    "comedy": 35,
+    "crime": 80,
+    "documentary": 99,
+    "drama": 18,
+    "family": 10751,
+    "fantasy": 14,
+    "history": 36,
+    "horror": 27,
+    "music": 10402,
+    "mystery": 9648,
+    "romance": 10749,
+    "sci-fi": 878,
+    "thriller": 53,
+    "war": 10752,
+    "western": 37
+}
 
 async function randomMovieCommand(interaction: CommandInteraction): Promise<void> {
-    const commandArguments = interaction.options;
-    let specifiedGenre: string = "";
-    
-    if (commandArguments.data.length > 0) { // There is a parameter (genre input)
-        if (typeof (commandArguments.data[0].value) === "string") {
-            specifiedGenre = commandArguments.data[0].value;
-            if (!validGenres.includes(specifiedGenre.toLowerCase())) { // Check if a valid genre is entered
-                // Reject invalid genre input
-                await interaction.reply(`Invalid genre.\nThe valid genres are: ${genreTypesMessage()}`);
-                return;
-            }
+    const cmdArgs = interaction.options;
+    let randomMovie: MovieInterface;
+    if (!wasGenreSpecified(cmdArgs)) {
+        randomMovie = await getRandomMovie();
+    } else {
+        let genreID: number = GenreTypes[<string>cmdArgs.data[0].value!];
+        if (genreID === undefined) {
+            interaction.reply(`Unknown genre. The valid genres are: ${validGenresMessage()}`);
+            return;
         }
+        randomMovie = await getRandomMovie(genreID);
     }
-    // If a genre is not specified, then specifiedGenre (as an empty string) is passed
-    let generatedMovie: MovieInterface = await getRandomMovie(specifiedGenre);
+    
+    // let generatedMovie: MovieInterface = await getRandomMovie(GenreTypes[specifiedGenre]);
 
-    if (generatedMovie.success === true) {
-        await interaction.reply({ embeds: [formatMovieMessage(generatedMovie)] });
+    if (randomMovie.success === true) {
+        await interaction.reply({ embeds: [formatMovieMessage(randomMovie)] });
     } else {
         await interaction.reply("There was an error obtaining movie data");
     }
 }
 
-function genreTypesMessage(): string {
+function wasGenreSpecified(cmdArgs: CommandInteraction["options"]): boolean {
+    if (cmdArgs.data.length > 0) {
+        if (typeof cmdArgs.data[0].value === "string") {
+            return true;
+        }
+    }
+    return false;
+}
+
+function validGenresMessage(): string {
     let validGenresMessage: string = "";
-    validGenres.forEach((element: string, index: number) => {
+
+    const keys = Object.keys(GenreTypes)
+    keys.forEach((element: string, index: number) => {
         validGenresMessage += `${element}`
-        if (index === validGenres.length - 1) {
-            validGenresMessage += '.';
+        if (index === keys.length - 1) {
+            validGenresMessage += "."
         } else {
-            validGenresMessage += ', ';
+            validGenresMessage += ", ";
         }
     });
+
     return validGenresMessage;
 }
 
