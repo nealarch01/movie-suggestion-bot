@@ -5,7 +5,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord.js/node_modules/discord-api-types/v9";
-import { discord_token, discord_clientID, personal_guildID } from '../client_config.json';
+import { discord_token, discord_clientID, guild_id } from '../client_config.json';
 
 const allGenres: Array<[string, string]> = [['Horror', 'Scary movies'],
                                             ['Comedy', 'Funny movies'],
@@ -46,6 +46,6 @@ const movieBotCommands = [
 
 const rest = new REST({ version: '9' }).setToken(discord_token);
 
-rest.put(Routes.applicationGuildCommands(discord_clientID, personal_guildID), { body: movieBotCommands })
+rest.put(Routes.applicationGuildCommands(discord_clientID, guild_id), { body: movieBotCommands })
     .then(() => console.log('Commands successfully registered'))
     .catch((err) => console.log(err, "\nAn error has occured registering commands"));
