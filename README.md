@@ -40,8 +40,8 @@
 - Movie data is obtained from https://www.themoviedb.org
 
 ## Sample video
-https://user-images.githubusercontent.com/73256760/163731966-68b4b0a1-d841-424a-9bc1-8380d8aac655.mov
 
+https://user-images.githubusercontent.com/73256760/178135791-4e4db6a0-f928-4202-b41c-4c21d765c6cb.mov
 
 
 
