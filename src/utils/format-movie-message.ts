@@ -15,12 +15,21 @@ function formatMovieMessage(movieData: MovieInterface): MessageEmbed {
         return new MessageEmbed()
             .setTitle("An error occured, try again");
     }
+
+    let ratingMessage: String; 
+    if (movieData.movie_user_ratings === undefined || isNaN(movieData.movie_user_ratings)) {
+        ratingMessage = "No ratings";
+    } else {
+        ratingMessage = `${movieData.movie_user_ratings * 10}% liked this`;
+    }
+
     const messageEmbed = new MessageEmbed()
-        .setColor("AQUA")
+        .setColor("DARK_GOLD")
         .setTitle(`${movieData.movie_name}`)
         .addFields(
             { name: "Description", value: `${movieData.movie_description} `, inline: false },
-            { name: "Released", value: `${movieData.movie_release_date} `, inline: false }
+            { name: "Released", value: `${movieData.movie_release_date} `, inline: false },
+            { name: "Rating", value: `${ratingMessage}`}
         )
         .setFooter({ text: "Movie data obtained from TMDB" })
 
