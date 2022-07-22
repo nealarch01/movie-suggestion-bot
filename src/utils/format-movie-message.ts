@@ -20,7 +20,7 @@ function formatMovieMessage(movieData: MovieInterface): MessageEmbed {
     if (movieData.movie_user_ratings === undefined || isNaN(movieData.movie_user_ratings)) {
         ratingMessage = "No ratings";
     } else {
-        ratingMessage = `${movieData.movie_user_ratings * 10}% liked this`;
+        ratingMessage = `${movieData.movie_user_ratings * 10}%`;
     }
 
     const messageEmbed = new MessageEmbed()
