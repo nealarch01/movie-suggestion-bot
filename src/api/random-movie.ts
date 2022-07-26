@@ -8,9 +8,9 @@ import MovieInterface from "../interfaces/movie-interface";
 import { tmdb_api_key } from "../../client_config.json";
 
 
-// Function that generates a random number between 1 and 4
+// Function that generates a random number between 1 and 5
 function generatePageNumber() {
-    return Math.floor(Math.random() * (4 - 1) + 1);
+    return Math.floor(Math.random() * (6 - 1) + 1);
 }
 
 
@@ -25,22 +25,7 @@ async function getRandomMovie(genreID?: number | undefined): Promise<MovieInterf
     }
 
     try {
-        let response = await axios.get(discoverURL); // Returns multiple movies
-        if (response.data.total_results === 0) { // Case for when the random page number generated does not contain any results
-            console.log("No results in page found");
-            // Set the URL page to 1
-            if (genreID === undefined) {
-                discoverURL = `https://api.themoviedb.org/3/discover/movie?api_key=${tmdb_api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${1}`;
-            } else {
-                discoverURL = `https://api.themoviedb.org/3/discover/movie?api_key=${tmdb_api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${1}&with_genres=${genreID}`;
-            }
-            response = await axios.get(discoverURL); // Recall
-        }
-
-        // if no data was found again in the first page, throw an error and return unsuccessful
-        if (response.data.total_results === 0) {
-            throw "No data found";
-        }
+        let response = await axios.get(discoverURL); // Response will return multiple movies
 
         const moviesList: Array<object> = response.data.results;
 
