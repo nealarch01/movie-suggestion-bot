@@ -5,7 +5,7 @@ import axios from "axios";
 import { tmdb_api_key } from "../../client_config.json";
 
 // this function will return the id of the top result if there are multiple
-async function getMovieID(movie_input: string): Promise<number> {
+async function fetchMovieID(movie_input: string): Promise<number> {
     // documentation link for search: https://developers.themoviedb.org/3/search/search-companies
     try {
         let searchURL = `https://api.themoviedb.org/3/search/movie?api_key=${tmdb_api_key}&language=en-US&query=${movie_input}&page=1&include_adult=false`;
@@ -21,4 +21,4 @@ async function getMovieID(movie_input: string): Promise<number> {
     }
 }
 
-export default getMovieID;
+export default fetchMovieID;

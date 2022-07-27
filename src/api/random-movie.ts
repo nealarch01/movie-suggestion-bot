@@ -8,22 +8,20 @@ import MovieInterface from "../interfaces/movie-interface";
 import { tmdb_api_key } from "../../client_config.json";
 
 
-// Function that generates a random number between 1 and 5
+// Function that generates a random number between 1 and 20
 function generatePageNumber() {
-    return Math.floor(Math.random() * (6 - 1) + 1);
+    return Math.floor(Math.random() * (20 - 1) + 1);
 }
 
-
-async function getRandomMovie(genreID?: number | undefined): Promise<MovieInterface> {
+async function fetchRandomMovie(genreID?: number | undefined): Promise<MovieInterface> {
     // Documentation link for discover: https://developers.themoviedb.org/3/discover/movie-discover
-
+    // Additional note: discover will obtain trending movies
     let discoverURL: string;
     if (genreID === undefined) {
-        discoverURL = `https://api.themoviedb.org/3/discover/movie?api_key=${tmdb_api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${generatePageNumber()}`;    
+        discoverURL = `https://api.themoviedb.org/3/discover/movie?api_key=${tmdb_api_key}&region=US&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${generatePageNumber()}`;    
     } else {
-        discoverURL = `https://api.themoviedb.org/3/discover/movie?api_key=${tmdb_api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${generatePageNumber()}&with_genres=${genreID}`;
+        discoverURL = `https://api.themoviedb.org/3/discover/movie?api_key=${tmdb_api_key}&region=US&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${generatePageNumber()}&with_genres=${genreID}`;
     }
-
     try {
         let response = await axios.get(discoverURL); // Response will return multiple movies
 
@@ -54,4 +52,4 @@ async function getRandomMovie(genreID?: number | undefined): Promise<MovieInterf
     }
 }
 
-export default getRandomMovie;
+export default fetchRandomMovie;

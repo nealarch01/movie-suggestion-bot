@@ -1,5 +1,5 @@
 // API Call imports
-import getRandomMovie from "../api/random-movie";
+import fetchRandomMovie from "../api/random-movie";
 
 // Discord type imports
 import { CommandInteraction, Interaction } from "discord.js";
@@ -8,7 +8,7 @@ import { CommandInteraction, Interaction } from "discord.js";
 import MovieInterface from "../interfaces/movie-interface";
 
 // Utility import
-import formatMovieMessage from "../utils/format-movie-message";
+import createMovieEmbed from "../create-movie-embed";
 
 const GenreTypes: any = {
     "action": 28,
@@ -35,22 +35,20 @@ async function randomMovieCommand(interaction: CommandInteraction): Promise<void
     const cmdArgs = interaction.options;
     let randomMovie: MovieInterface;
     if (!wasGenreSpecified(cmdArgs)) {
-        randomMovie = await getRandomMovie();
+        randomMovie = await fetchRandomMovie();
     } else {
         let genreID: number = GenreTypes[<string>cmdArgs.data[0].value!];
         if (genreID === undefined) {
-            interaction.reply(`Unknown genre. The valid genres are: ${validGenresMessage()}`);
+            interaction.reply(`Unknown genre. The valid genres are: ${validGenres()}`);
             return;
         }
-        randomMovie = await getRandomMovie(genreID);
+        randomMovie = await fetchRandomMovie(genreID);
     }
-    
-    // let generatedMovie: MovieInterface = await getRandomMovie(GenreTypes[specifiedGenre]);
-
+    // Evaluate if API fetch was successful
     if (randomMovie.success === true) {
-        await interaction.reply({ embeds: [formatMovieMessage(randomMovie)] });
+        await interaction.reply({ embeds: [createMovieEmbed(randomMovie)] });
     } else {
-        await interaction.reply("There was an error obtaining movie data");
+        await interaction.reply("There was an error obtaining movie data. Try again.");
     }
 }
 
@@ -63,7 +61,8 @@ function wasGenreSpecified(cmdArgs: CommandInteraction["options"]): boolean {
     return false;
 }
 
-function validGenresMessage(): string {
+// This function returns a string containing all the valid genres.
+function validGenres(): string {
     let validGenresMessage: string = "";
 
     const keys = Object.keys(GenreTypes)
@@ -78,7 +77,5 @@ function validGenresMessage(): string {
 
     return validGenresMessage;
 }
-
-
 
 export default randomMovieCommand;

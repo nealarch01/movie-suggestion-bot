@@ -2,12 +2,9 @@
 import { MessageEmbed } from "discord.js";
 
 // Interface imports
-import MovieInterface from "../interfaces/movie-interface";
+import MovieInterface from "./interfaces/movie-interface";
 
-// Attribute source to tmdb
-import attributeSource_tmdb from "./attribute-tmdb";
-
-function formatMovieMessage(movieData: MovieInterface): MessageEmbed {
+function createMovieEmbed(movieData: MovieInterface): MessageEmbed {
     // Note: MessageEmbed fields cannot have an empty string as a value (API returned nothing)
     if (movieData.movie_name === "" || movieData.movie_description === ""
         || movieData.movie_release_date === "") {
@@ -41,4 +38,4 @@ function formatMovieMessage(movieData: MovieInterface): MessageEmbed {
     return messageEmbed;
 }
 
-export default formatMovieMessage;
+export default createMovieEmbed;

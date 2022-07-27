@@ -11,8 +11,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node ./src/index.ts",
-    "deploy-commands": "ts-node ./src/deploy-commands.ts"
+    "start": "ts-node ./index.ts",
+    "deploy-commands": "ts-node ./deploy-commands.ts"
   },
   "keywords": [],
   "author": "Neal A.",

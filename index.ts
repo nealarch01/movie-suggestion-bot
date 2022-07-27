@@ -1,15 +1,14 @@
 // Discord imports
 import { Client, Intents, Interaction } from "discord.js";
-import { discord_token } from "../client_config.json";
+import { discord_token } from "./client_config.json";
 
 // Command handlers
-import randomMovieCommand from "./commands/random-movie-command";
-import movieTrailerCommand from "./commands/movie-trailer-command";
+import randomMovieCommand from "./src/commands/random-movie-command";
+import movieTrailerCommand from "./src/commands/movie-trailer-command";
 
-// initiate the client
+// Initiate the client
 const discordClient = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
-// event listener to start
 discordClient.once("ready", () => {
     console.log("The bot is now running");
 });

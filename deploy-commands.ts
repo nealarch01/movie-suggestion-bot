@@ -5,15 +5,15 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord.js/node_modules/discord-api-types/v9";
-import { discord_token, discord_clientID, guild_id } from '../client_config.json';
+import { discord_token, discord_clientID, guild_id } from './client_config.json';
 
 const allGenres: Array<[string, string]> = [['Horror', 'Scary movies'],
                                             ['Comedy', 'Funny movies'],
                                             ['Thriller', 'Thrilling movies'],
-                                            ['Action', 'Action Movies'],
-                                            ['Adventure', 'Adventorous Movies'],
-                                            ['Animation', 'Animated Movies'],
-                                            ['History', 'Historical Movies'],
+                                            ['Action', 'Action movies'],
+                                            ['Adventure', 'Adventorous movies'],
+                                            ['Animation', 'Animated movies'],
+                                            ['History', 'Historical movies'],
                                             ['Documentary', 'Documentary films'],
                                             ['Music', 'Musicals'],
                                             ['Mystery', 'Mystery movies'],
