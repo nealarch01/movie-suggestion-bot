@@ -35,11 +35,14 @@ async function randomMovieCommand(interaction: CommandInteraction): Promise<void
     const cmdArgs = interaction.options;
     let randomMovie: MovieInterface;
     if (!wasGenreSpecified(cmdArgs)) {
-        randomMovie = await fetchRandomMovie();
+        randomMovie = await fetchRandomMovie(); // Make an API call without a specified genre
     } else {
-        let genreID: number = GenreTypes[<string>cmdArgs.data[0].value!];
-        if (genreID === undefined) {
-            interaction.reply(`Unknown genre. The valid genres are: ${validGenres()}`);
+        // We can typecast the first element of the array to a string because it was checked in wasGenreSpecified function 
+        let genreInput: string = <string>cmdArgs.data[0].value!;
+        genreInput = genreInput.toLowerCase(); // Convert to lowercase to allow matching 
+        let genreID: number = GenreTypes[genreInput];
+        if (genreID === undefined) { // If the genre does not have an associated ID
+            interaction.reply(`Unknown genre. The valid genres are: ${validGenres()}`); // Inform the user the valid genres available.
             return;
         }
         randomMovie = await fetchRandomMovie(genreID);
@@ -52,6 +55,7 @@ async function randomMovieCommand(interaction: CommandInteraction): Promise<void
     }
 }
 
+// Checks if a genre was specified in the command
 function wasGenreSpecified(cmdArgs: CommandInteraction["options"]): boolean {
     if (cmdArgs.data.length > 0) {
         if (typeof cmdArgs.data[0].value === "string") {
