@@ -10,34 +10,23 @@
 ## Installation:
 1. Download or clone the repo ```git clone https://github.com/nealarch01/DiscordMovieBot.git ```
 2. Navigate into the Discord bot's directory and type ```npm install``` to install dependency packages.
-<b>Note: this command will not install ts-node!!</b>
-    - If ts-node has not been installed before, use ```npm install ts-node```
-3. Configure your ```client_config.json``` by assigning your API keys and IDs. 
 
-<b>```client_config.json```</b>
+3. Create a file named <b>```client_config.json```</b> and follow the fields below.
 ```json
 {
     "tmdb_api_key": "your-api-key",
     "discord_token": "your-api-key",
     "discord_client_id": "your-discord-appplication-id",
-    "guild_id": "your-server-id"
 }
 ```
-4. Register the bot's commands to your discord server
-    - Copy the Discord server ID and set that as the value for ```guild_id``` in ```client.config_json```
-    - Then, run ```npm run deploy-commands```
-5. Finally, start the bot: ```npm start ```
+4. Finally, start the bot: ```npm start ```
 
 ## Additional notes and resources
-
-- Bot uses discord.js V13
-- Documentation links
+- Useful Documentation links
     - https://developers.themoviedb.org/3/getting-started/introduction
     - https://discordjs.guide/#before-you-begin
     - https://discord.js.org/#/
 
-## Attributions
-- Movie data is obtained from https://www.themoviedb.org
 
 ## Sample video
 
@@ -54,3 +43,5 @@ https://user-images.githubusercontent.com/73256760/178135791-4e4db6a0-f928-4202-
 
 ```/movie-trailer {movie-name}``` returns a movie's YouTube trailer link
 
+## Attributions
+- Movie data is obtained from https://www.themoviedb.org
