@@ -4,7 +4,8 @@
     "@discordjs/rest": "^0.3.0",
     "axios": "^0.26.1",
     "discord-api-types": "^0.30.0",
-    "discord.js": "^13.6.0"
+    "discord.js": "^13.6.0",
+    "ts-node": "^10.9.1"
   },
   "name": "moviebot",
   "version": "1.0.0",
@@ -17,5 +18,8 @@
   "keywords": [],
   "author": "Neal A.",
   "license": "ISC",
-  "description": "Movie bot for discord"
+  "description": "Movie bot for discord",
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
 }
